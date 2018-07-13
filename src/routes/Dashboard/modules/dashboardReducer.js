@@ -33,6 +33,19 @@ export default function dashboard(state = initialState, action) {
     case DASHBOARD_VISITS_INCREMENT:
       state.visitsCount = state.visitsCount + action.value
       return Object.assign({}, state)
+    case DASHBOARD_ADD_ITEM:
+      const mockedId = Math.floor(Date.now() / 1000);
+      const newItem = {
+        label: action.label,
+        id: mockedId
+      }
+      state.list.push(newItem);
+      return Object.assign({}, state)
+    case DASHBOARD_EDIT_ITEM:
+      const newLabel = action.label;
+      const index = action.index;
+      state.list[index].label = newLabel;
+      return Object.assign({}, state)
     default:
       return state
   }
