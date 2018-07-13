@@ -1,23 +1,28 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet} from 'react-native'
 import LoginDashboard from './loginDashboard'
+import DashboardDragDropList from './dashboardDragDropList'
 
 const Dashboard = (props) => {
-  const { value, list, onChangeText, submitAction, itemOnEdit, textInput, buttonText, loginAsync, isLoggedIn, loginToken } = props;
+  const { value, list, onChangeText, submitAction, itemOnEdit, textInput, buttonText, loginAsync, isLoggedIn, loginToken, dashboardChangeItemsOrder } = props;
 
   const inputSubmitAction = () => {
     submitAction();
   }
 
-  const editLabelAction = (index) => {
-    itemOnEdit(index);
+  const editLabelAction = (key) => {
+    itemOnEdit(key);
   }
 
-  const listJSX = list.map((item, i) => {
-    return <TouchableOpacity key={i} onPress={() => editLabelAction(i)}>
-             <Text style={styles.buttonText}>{item.label}</Text>
-           </TouchableOpacity>
-  })
+  const changeItemsOrder = (newOrder) => {
+    dashboardChangeItemsOrder(newOrder);
+  }
+
+  // const listJSX = list.map((item, i) => {
+  //   return <TouchableOpacity key={i} onPress={() => editLabelAction(i)}>
+  //            <Text style={styles.buttonText}>{item.label}</Text>
+  //          </TouchableOpacity>
+  // })
 
   return (
     <View style={styles.container}>
@@ -37,7 +42,7 @@ const Dashboard = (props) => {
           <TouchableOpacity onPress={inputSubmitAction} style={styles.button}>
             <Text style={styles.buttonText}>{buttonText}</Text>
           </TouchableOpacity>
-          {listJSX}
+          <Dash
           :
           <Text style={styles.text}>
             Please log in

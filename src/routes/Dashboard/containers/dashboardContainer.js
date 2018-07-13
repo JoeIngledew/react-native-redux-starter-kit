@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { visitsIncrement, dashboardAddItem, dashboardEditItem } from '../modules/dashboardReducer'
+import { visitsIncrement, dashboardAddItem, dashboardEditItem, dashboardChangeItemsOrder } from '../modules/dashboardReducer'
 import { loginAsync } from '../../../modules/session'
 import Dashboard from '../../../components/Dashboard/dashboard'
 
@@ -14,7 +14,7 @@ class DashboardContainer extends Component {
 
     this.state = {
       inputValue: '',
-      editedItemIndex: null
+      editedItemKey: null
     }
   }
 
@@ -29,17 +29,17 @@ class DashboardContainer extends Component {
 
   submitAction() {
     const { dashboardAddItem, dashboardEditItem } = this.props;
-    const { inputValue, editedItemIndex } = this.state;
+    const { inputValue, editedItemKey } = this.state;
 
-    if (editedItemIndex === null) {
+    if (editedItemKey === null) {
       dashboardAddItem(inputValue);
     } else {
-      dashboardEditItem(inputValue, editedItemIndex);
+      dashboardEditItem(inputValue, editedItemKey);
     }
 
     this.setState({
       inputValue: '',
-      editedItemIndex: null
+      editedItemKey: null
     })
   }
 
@@ -53,8 +53,8 @@ class DashboardContainer extends Component {
   }
 
   render() {
-    const { inputValue, editedItemIndex } = this.state;
-    const buttonText = { editedItemIndex === null } ? 'Add item' : 'Edit item';
+    const { inputValue, editedItemKey } = this.state;
+    const buttonText = { editedItemKey === null } ? 'Add item' : 'Edit item';
 
     return(
       <Dashboard 
